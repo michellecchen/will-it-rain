@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'ChessType';
+  src: local('ChessType'), url(./fonts/chesstype/ChessType.ttf) format('truetype');
+}
+
+/* @font-face {
+  font-family: 'Blox2';
+  src: local('Blox2'), url(./fonts/blox-brk/Blox2.ttf) format('truetype');
+} */
+
+@font-face {
+  font-family: 'Humanoid';
+  src: local('Humanoid'), url(./fonts/humanoid/HUMANOID.TTF) format('truetype');
+}
+
+@font-face {
+  font-family: 'Humanoid-Straight';
+  src: local('Humanoid-Straight'), url(./fonts/humanoid/HUMANOIDSTRAIGHT.TTF) format('truetype');
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
