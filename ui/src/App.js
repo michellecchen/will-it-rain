@@ -14,22 +14,22 @@ class App extends Component {
     this.state = {
       isLoading: false,
       formData: {
-        MinTemp: 0.0,
-        MaxTemp: 0.0,
-        Rainfall: 0.0,
-        WindGustDir: "",
-        WindGustSpeed: 0,
-        WindDir9am: "",
-        WindDir3pm: "",
-        WindSpeed9am: 0,
-        WindSpeed3pm: 0,
-        Humidity9am: 0,
-        Humidity3pm: 0,
-        Pressure9am: 0.0,
-        Pressure3pm: 0.0,
-        Temp9am: 0.0,
-        Temp3pm: 0.0,
-        RainToday: ""
+        "MinTemp": 19.3,
+        "MaxTemp": 21.6,
+        "Rainfall": 2.4,
+        "WindGustDir": "SE",
+        "WindGustSpeed": 44,
+        "WindDir9am": "SSE",
+        "WindDir3pm": "SSE",
+        "WindSpeed9am": 20,
+        "WindSpeed3pm": 20,
+        "Humidity9am": 86,
+        "Humidity3pm": 68,
+        "Pressure9am": 1022.7,
+        "Pressure3pm": 1022.5,
+        "Temp9am": 19.7,
+        "Temp3pm": 21,
+        "RainToday": "Yes"
       },
       result: ""
     };
@@ -47,8 +47,17 @@ class App extends Component {
 
   handlePredictClick = (event) => {
     const formData = this.state.formData;
+    console.log(this.state.formData);
     this.setState({ isLoading: true });
-    fetch("http://127.0.0.1:5000/prediction/", {
+    // fetch("http://127.0.0.1:5000/prediction/", {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify(formData)
+    // })
+    fetch("http://localhost:1234/prediction/", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -62,6 +71,7 @@ class App extends Component {
           result: response.result,
           isLoading: false
         });
+        console.log("Prediction is: " + response.result);
       });
   };
 

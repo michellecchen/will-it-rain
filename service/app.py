@@ -1,16 +1,10 @@
 from flask import Flask, request, jsonify, make_response
 from flask_restplus import Api, Resource, fields
-# from flask.ext.cors import CORS, cross_origin
 import numpy as np
 import joblib
 import os
 
 flask_app = Flask(__name__)
-
-# flask_app.config['SECRET_KEY'] = "the quick brown fox jumps over the lazy dog"
-# flask_app.config['CORS_HEADERS'] = 'Content-Type'
-# cors = CORS(flask_app, resources={r"/foo": {"origins": "http://localhost:port"}})
-
 
 app = Api(app = flask_app, 
 		  version = "1.0", 
@@ -69,10 +63,8 @@ model = app.model('Prediction params',
 										description='Did it rain today?',
 										help='This field cannot be blank')})
 
-# clf = joblib.load('clf.pkl')
 filename = 'clf.joblib'
 if os.path.getsize(filename) > 0:
-	# clf = pickle.load(open('clf.pkl', 'rb'))
 	clf = joblib.load(filename)
 else:
 	print('ERROR: File is empty, cannot be loaded.')
@@ -100,6 +92,13 @@ class MainClass(Resource):
 			formData = request.json
 			data = [val for val in formData.values()]
 			
+			for i in range(len(data)-1):
+				if (i != 3 and i != 5 and i != 6) and (isinstance(data[i], str)):
+					if data[i].isdecimal():
+						data[i] = float(data[i])
+					else:
+						data[i] = int(data[i])
+			
 			data[3] = directions[data[3]]
 			data[5] = directions[data[5]]
 			data[6] = directions[data[6]]
@@ -107,13 +106,13 @@ class MainClass(Resource):
 				data[15] = 1
 			else:
 				data[15] = 0
-
-			prediction = clf.predict(np.array(data).reshape(1,-1)) #???
-			types = { 1: "Yes", -1: "No" }
+			
+			result = [data]
+			prediction = clf.predict(result)
 			response = jsonify({
 				"statusCode": 200,
 				"status": "Prediction made",
-				"result": "Prediction: " + types[prediction[0]]
+				"result": "Prediction: " + prediction[0]
 				})
 			response.headers.add('Access-Control-Allow-Origin', '*')
 			return response
